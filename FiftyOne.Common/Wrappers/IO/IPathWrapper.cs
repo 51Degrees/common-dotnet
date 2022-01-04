@@ -20,10 +20,6 @@
  * such notice(s) shall fulfill the requirements of that article.
  * ********************************************************************* */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Common.Wrappers.IO
 {
     public interface IPathWrapper

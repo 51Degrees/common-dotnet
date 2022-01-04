@@ -21,21 +21,38 @@
  * ********************************************************************* */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FiftyOne.Common.Wrappers
 {
+    /// <summary>
+    /// Wraps the .NET DateTime properties that return the current real date 
+    /// and time information.
+    /// </summary>
     public class DateTimeWrapper : IDateTimeWrapper
     {
+        /// <summary>
+        /// Gets a <see cref="DateTime"/> object that is set to the current 
+        /// date and time on this computer, expressed as the local time.
+        /// </summary>
         public DateTime Now
         {
             get { return DateTime.Now; }
         }
+
+        /// <summary>
+        /// Gets a <see cref="DateTime"/> object that is set to the current 
+        /// date and time on this computer, expressed as the Coordinated 
+        /// Universal Time (UTC).
+        /// </summary>
         public DateTime UtcNow
         {
             get { return DateTime.UtcNow; }
         }
+
+        /// <summary>
+        /// Gets the current date. An object that is set to today's date, with 
+        /// the time component set to 00:00:00.
+        /// </summary>
         public DateTime Today
         {
             get { return DateTime.Today; }
