@@ -24,6 +24,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FiftyOne.Common.TestHelpers
 {
@@ -41,28 +42,70 @@ namespace FiftyOne.Common.TestHelpers
     /// </summary>
     public class TestLogger : ILogger
     {
-        /// <summary>
-        /// A list of the text of warnings that have been logged.
-        /// </summary>
-        public List<string> WarningsLogged { get; set; }
 
         /// <summary>
-        /// A list of the text of errors and critical warnings that have been 
-        /// logged.
+        /// List of log entries sent to the logger. 
         /// </summary>
-        public List<string> ErrorsLogged { get; set; }
+        private readonly List<KeyValuePair<LogLevel, string>> _entries = 
+            new List<KeyValuePair<LogLevel, string>>();
+
+        /// <summary>
+        /// List of log entries sent to the logger. 
+        /// </summary>
+        public IReadOnlyList<KeyValuePair<LogLevel, string>> Entries => _entries;
+
+        /// <summary>
+        /// Enumerable of the text of critical entries that have been logged.
+        /// </summary>
+        public IEnumerable<string> CriticalEntries => _entries.Where(i =>
+            i.Key == LogLevel.Critical).Select(i => i.Value);
+
+        /// <summary>
+        /// Enumerable of the text of warning entries that have been logged.
+        /// </summary>
+        public IEnumerable<string> WarningEntries => _entries.Where(i =>
+            i.Key == LogLevel.Warning).Select(i => i.Value);
+
+        /// <summary>
+        /// Enumerable of the text of error entries that have been logged.
+        /// </summary>
+        public IEnumerable<string> ErrorEntries => _entries.Where(i =>
+            i.Key == LogLevel.Error).Select(i => i.Value);
+
+        /// <summary>
+        /// Enumerable of the text of information entries that have been logged.
+        /// </summary>
+        public IEnumerable<string> InfoEntries => _entries.Where(i =>
+            i.Key == LogLevel.Information).Select(i => i.Value);
+
+        /// <summary>
+        /// Enumerable of the text of debug entries that have been logged.
+        /// </summary>
+        public IEnumerable<string> DebugEntries => _entries.Where(i =>
+            i.Key == LogLevel.Debug).Select(i => i.Value);
+
+        /// <summary>
+        /// Enumerable of the text of trace entries that have been logged.
+        /// </summary>
+        public IEnumerable<string> TraceLogged => _entries.Where(i =>
+            i.Key == LogLevel.Trace).Select(i => i.Value);
 
         /// <summary>
         /// The category is usually the name of the type that the logger is for (if any)
         /// </summary>
         public string Category { get; private set; }
 
+        [Obsolete]
+        public IEnumerable<string> WarningsLogged => WarningEntries;
+
+        [Obsolete]
+        public IEnumerable<string> ErrorsLogged => ErrorEntries;
+
         public TestLogger(string category)
         {
-            WarningsLogged = new List<string>();
-            ErrorsLogged = new List<string>();
             Category = category;
         }
+
         public TestLogger() : this("")
         {
         }
@@ -76,12 +119,12 @@ namespace FiftyOne.Common.TestHelpers
         /// </param>
         public void AssertMaxWarnings(int count)
         {
-            if (WarningsLogged.Count > count)
+            if (WarningEntries.Count() > count)
             {
-                var message = $"{WarningsLogged.Count} warnings occurred " +
+                var message = $"{WarningEntries.Count()} warnings occurred " +
                     "during test " +
                     $" {(count > 0 ? $"(expected no more than {count})" : "")}:";
-                foreach (var warning in WarningsLogged)
+                foreach (var warning in WarningEntries)
                 {
                     message += Environment.NewLine;
                     message += Environment.NewLine;
@@ -100,11 +143,11 @@ namespace FiftyOne.Common.TestHelpers
         /// </param>
         public void AssertMaxErrors(int count)
         {
-            if (ErrorsLogged.Count > count)
+            if (ErrorEntries.Count() > count)
             {
-                var message = $"{ErrorsLogged.Count} errors occurred during test" +
+                var message = $"{ErrorEntries.Count()} errors occurred during test" +
                     $"{(count > 0 ? $" (expected no more than {count})" : "")}:";
-                foreach (var error in ErrorsLogged)
+                foreach (var error in ErrorEntries)
                 {
                     message += Environment.NewLine;
                     message += Environment.NewLine;
@@ -124,26 +167,15 @@ namespace FiftyOne.Common.TestHelpers
             return true;
         }
 
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        public void Log<TState>(
+            LogLevel logLevel, 
+            EventId eventId, 
+            TState state, 
+            Exception exception, 
+            Func<TState, Exception, string> formatter)
         {
-            switch (logLevel)
-            {
-                case LogLevel.Trace:
-                case LogLevel.Debug:
-                case LogLevel.Information:
-                    break;
-                case LogLevel.Warning:
-                    WarningsLogged.Add(formatter(state, exception));
-                    break;
-                case LogLevel.Error:
-                case LogLevel.Critical:
-                    ErrorsLogged.Add(formatter(state, exception));
-                    break;
-                case LogLevel.None:
-                    break;
-                default:
-                    break;
-            }
+            var value = formatter(state, exception);
+            _entries.Add(new KeyValuePair<LogLevel, string>(logLevel, value));
         }
     }
 }
