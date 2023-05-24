@@ -44,7 +44,7 @@ namespace FiftyOne.Common.TestHelpers
 
         public ILogger CreateLogger(string categoryName)
         {
-            var logger = new TestLogger();
+            var logger = new TestLogger(categoryName);
             Loggers.Add(logger);
             return logger;
         }
@@ -63,7 +63,7 @@ namespace FiftyOne.Common.TestHelpers
         /// </param>
         public void AssertMaxWarnings(int count)
         {
-            var allWarnings = Loggers.SelectMany(l => l.WarningsLogged);
+            var allWarnings = Loggers.SelectMany(l => l.WarningEntries);
             if (allWarnings.Count() > count)
             {
                 var message = $"{allWarnings.Count()} warnings occurred " +
@@ -88,7 +88,7 @@ namespace FiftyOne.Common.TestHelpers
         /// </param>
         public void AssertMaxErrors(int count)
         {
-            var allErrors = Loggers.SelectMany(l => l.ErrorsLogged);
+            var allErrors = Loggers.SelectMany(l => l.ErrorEntries);
             if (allErrors.Count() > count)
             {
                 var message = $"{allErrors.Count()} errors occurred during test" +
