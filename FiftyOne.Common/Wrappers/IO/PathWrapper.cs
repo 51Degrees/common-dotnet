@@ -20,10 +20,7 @@
  * such notice(s) shall fulfill the requirements of that article.
  * ********************************************************************* */
 
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Common.Wrappers.IO
 {
