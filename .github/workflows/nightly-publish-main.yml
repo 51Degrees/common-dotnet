@@ -1,6 +1,7 @@
 name: Nightly Publish Main
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: [Nightly PRs to Main]
     types: [completed]
