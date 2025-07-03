@@ -21,7 +21,6 @@
  * ********************************************************************* */
 
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Primitives;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -169,7 +168,7 @@ namespace FiftyOne.Common.TestHelpers
         /// </param>
         public void AssertMaxWarnings(int count)
         {
-            if (WarningEntries.Count() > count)
+            if (WarningEntries != null && WarningEntries.Count() > count)
             {
                 var message = $"{WarningEntries.Count()} warnings occurred " +
                     "during test " +
@@ -193,7 +192,7 @@ namespace FiftyOne.Common.TestHelpers
         /// </param>
         public void AssertMaxErrors(int count)
         {
-            if (ErrorEntries.Count() > count)
+            if (ErrorEntries != null && ErrorEntries.Count() > count)
             {
                 var message = $"{ErrorEntries.Count()} errors occurred during test" +
                     $"{(count > 0 ? $" (expected no more than {count})" : "")}:";
