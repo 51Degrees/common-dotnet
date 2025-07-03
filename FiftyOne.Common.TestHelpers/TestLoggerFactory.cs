@@ -72,7 +72,6 @@ namespace FiftyOne.Common.TestHelpers
                 foreach (var warning in allWarnings)
                 {
                     message += Environment.NewLine;
-                    message += Environment.NewLine;
                     message += warning;
                 }
                 Assert.Fail(message);
