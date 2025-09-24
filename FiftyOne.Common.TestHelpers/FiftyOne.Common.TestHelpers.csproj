@@ -38,4 +38,8 @@
     <PackageReference Include="MSTest.TestFramework" Version="3.9.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FiftyOne.Common\FiftyOne.Common.csproj" />
+  </ItemGroup>
+
 </Project>
