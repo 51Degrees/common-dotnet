@@ -13,5 +13,3 @@ FiftyOne.Common is a shared library containing wrappers, constants, and test hel
 ## Contributing
 
 If you would like to contribuite please follow the contribution guidelines outlined in [CONTRIBUTING.md](https://github.com/51Degrees/common-dotnet/blob/main/CONTRIBUTING.md).
-
-
