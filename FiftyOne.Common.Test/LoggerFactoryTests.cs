@@ -69,7 +69,7 @@ public class LoggerFactoryTests
     public void Warnings()
     {
         _logger.LogWarning("Test");
-        Assert.ThrowsException<AssertFailedException>(
+        Assert.ThrowsExactly<AssertFailedException>(
             () => _loggerFactory.AssertMaxWarnings(0));
     }
 
@@ -77,7 +77,7 @@ public class LoggerFactoryTests
     public void Errors()
     {
         _logger.LogError("Test");
-        Assert.ThrowsException<AssertFailedException>(
+        Assert.ThrowsExactly<AssertFailedException>(
             () => _loggerFactory.AssertMaxErrors(0));
     }
 }
