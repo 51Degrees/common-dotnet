@@ -21,14 +21,15 @@
  * ********************************************************************* */
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.IO;
 
 namespace FiftyOne.Common.TestHelpers
 {
     public static class TestUtils
     {
-        public static FileInfo GetFilePath(string filename, DirectoryInfo searchRoot)
+        public static FileInfo GetFilePath(
+            string filename,
+            DirectoryInfo searchRoot)
         {
             var p = FileUtils.FindFile(filename, searchRoot);
             var fullPath = p == null ? null : new FileInfo(p);

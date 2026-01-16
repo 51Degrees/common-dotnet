@@ -28,9 +28,10 @@ namespace FiftyOne.Common
     public static class KeyUtils
     {
         /// <summary>
-        /// Checks if the supplied 51Degrees resource key / license key is invalid.
-        /// Note that this cannot determine if the key is definitely valid, just whether it is
-        /// definitely invalid.
+        /// Checks if the supplied 51Degrees resource key / license key is
+        /// invalid.
+        /// Note that this cannot determine if the key is definitely valid,
+        /// just whether it is definitely invalid.
         /// </summary>
         /// <param name="key">
         /// The key to check.
@@ -58,4 +59,3 @@ namespace FiftyOne.Common
         }
     }
 }
-

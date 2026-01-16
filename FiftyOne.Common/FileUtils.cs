@@ -20,7 +20,6 @@
  * such notice(s) shall fulfill the requirements of that article.
  * ********************************************************************* */
 
-using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,15 +34,16 @@ namespace FiftyOne.Common
         private const int FindFileTimeoutMs = 10000;
 
         /// <summary>
-        /// Uses a background task to search for the specified filename within the working 
-        /// directory.
-        /// If the file cannot be found, the algorithm will move to the parent directory and 
-        /// repeat the process.
+        /// Uses a background task to search for the specified filename within
+        /// the working directory.
+        /// If the file cannot be found, the algorithm will move to the parent
+        /// directory and repeat the process.
         /// This continues until the file is found or a timeout is triggered.
         /// </summary>
         /// <param name="filename"></param>
         /// <param name="dir">
-        /// The directory to start looking from. If not provided the current directory is used.
+        /// The directory to start looking from. If not provided the current
+        /// directory is used.
         /// </param>
         /// <returns></returns>
         public static string FindFile(
@@ -52,7 +52,10 @@ namespace FiftyOne.Common
         {
             var cancel = new CancellationTokenSource();
             // Start the file system search as a separate task.
-            var searchTask = Task.Run(() => FindFile(filename, dir, cancel.Token));
+            var searchTask = Task.Run(() => FindFile(
+                filename, 
+                dir, 
+                cancel.Token));
             // Wait for either the search or a timeout task to complete.
             Task.WaitAny(searchTask, Task.Delay(FindFileTimeoutMs));
             cancel.Cancel();
@@ -73,7 +76,9 @@ namespace FiftyOne.Common
 
             try
             {
-                var files = dir.GetFiles(filename, SearchOption.AllDirectories);
+                var files = dir.GetFiles(
+                    filename, 
+                    SearchOption.AllDirectories);
                 if (files.Length == 0 &&
                     dir.Parent != null &&
                     cancel.IsCancellationRequested == false)
