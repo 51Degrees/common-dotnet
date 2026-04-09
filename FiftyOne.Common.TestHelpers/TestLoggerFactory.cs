@@ -34,6 +34,8 @@ namespace FiftyOne.Common.TestHelpers
     /// </summary>
     public class TestLoggerFactory : ILoggerFactory
     {
+        private readonly object _lock = new object();
+
         // A list of the loggers that have been created by this factory.
         public List<TestLogger> Loggers { get; set; } = new List<TestLogger>();
 
@@ -45,7 +47,10 @@ namespace FiftyOne.Common.TestHelpers
         public ILogger CreateLogger(string categoryName)
         {
             var logger = new TestLogger(categoryName);
-            Loggers.Add(logger);
+            lock (_lock)
+            {
+                Loggers.Add(logger);
+            }
             return logger;
         }
 
