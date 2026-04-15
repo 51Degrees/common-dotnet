@@ -78,7 +78,7 @@ namespace FiftyOne.Common.Tests
         /// <param name="method"></param>
         [DataRow("GET")]
         [DataRow("POST")]
-        [DataTestMethod]
+        [TestMethod]
         public void SingleRequest(string method)
         {
             // Arrange
@@ -116,7 +116,7 @@ namespace FiftyOne.Common.Tests
         /// <param name="method"></param>
         [DataRow("GET")]
         [DataRow("POST")]
-        [DataTestMethod]
+        [TestMethod]
         public void FailedRequest(string method)
         {
             // Arrange
@@ -154,7 +154,7 @@ namespace FiftyOne.Common.Tests
         /// <param name="method"></param>
         [DataRow("GET")]
         [DataRow("POST")]
-        [DataTestMethod]
+        [TestMethod]
         public void MultipleRequests(string method)
         {
             // Arrange
@@ -200,7 +200,7 @@ namespace FiftyOne.Common.Tests
         /// <param name="method"></param>
         [DataRow("GET")]
         [DataRow("POST")]
-        [DataTestMethod]
+        [TestMethod]
         public void MultipleRequests_Limited(string method)
         {
             // Arrange
@@ -259,7 +259,7 @@ namespace FiftyOne.Common.Tests
         /// <exception cref="Exception"></exception>
         [DataRow("GET")]
         [DataRow("POST")]
-        [DataTestMethod]
+        [TestMethod]
         public void MultipleRequests_DifferentResults(string method)
         {
             // Arrange
@@ -325,7 +325,7 @@ namespace FiftyOne.Common.Tests
         /// <param name="method"></param>
         [DataRow("GET")]
         [DataRow("POST")]
-        [DataTestMethod]
+        [TestMethod]
         public void MultipleRequests_PreviouslyLimited(string method)
         {
             // Arrange
