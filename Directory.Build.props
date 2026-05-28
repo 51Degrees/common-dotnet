@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <AssemblyVersion>4.5.0.0</AssemblyVersion>      <!-- PIN to major.minor.0.0; do not bump per patch -->
+    <AssemblyVersion>5.1.0.0</AssemblyVersion>      <!-- PIN to major.minor.0.0; matches current 5.x shipping line (last published 5.1.4) -->
                                                      <!-- Version is supplied by CI via /p:Version= (gitversion) -->
 
     <SignAssembly>true</SignAssembly>
